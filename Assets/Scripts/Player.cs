@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     private GameObject _laserPrefab;
     [SerializeField]
     private float _speed = 3.5f;
+    [SerializeField]
+    private float _fireRate = 0.15f;
+    private float _canFire = -1f;
 
     private const float _bottomBoundary = -3.8f;
     private const float _topBoundary = 0;
@@ -30,7 +33,10 @@ public class Player : MonoBehaviour
 
     private void Fire()
     {
-        Instantiate(_laserPrefab, transform.position + _laserSpawnOffset, Quaternion.identity);
+        if (Time.time > _canFire) {
+            _canFire = Time.time + _fireRate;
+            Instantiate(_laserPrefab, transform.position + _laserSpawnOffset, Quaternion.identity);
+        }
     }
 
     void Update()
