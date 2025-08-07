@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,19 +19,19 @@ public class Player : MonoBehaviour
     void Start()
     {
         moveAction = InputSystem.actions.FindAction("Player/Move");
+
         fireAction = InputSystem.actions.FindAction("Player/Fire");
+        fireAction.performed += ctx => Fire();
+    }
+
+    private void Fire()
+    {
+        Instantiate(laserPrefab, transform.position, Quaternion.identity);
     }
 
     void Update()
     {
         CalcMovement();
-
-        bool isSpaceKeyPressed = fireAction.IsPressed();
-
-        if (isSpaceKeyPressed)
-        {
-            Instantiate(laserPrefab);
-        }
     }
 
     void CalcMovement()
