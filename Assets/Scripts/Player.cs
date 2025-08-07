@@ -1,11 +1,12 @@
 using System;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private GameObject laserPrefab;
+    private GameObject _laserPrefab;
     [SerializeField]
     private float _speed = 3.5f;
 
@@ -13,20 +14,23 @@ public class Player : MonoBehaviour
     private const float _topBoundary = 0;
     private const float _rightBoundary = 9.2f;
     private const float _leftBoundary = -9.2f;
-    private InputAction moveAction;
-    private InputAction fireAction;
+
+    private Vector3 _laserSpawnOffset = new Vector3(0, 0.8f, 0);
+
+    private InputAction _moveAction;
+    private InputAction _fireAction;
 
     void Start()
     {
-        moveAction = InputSystem.actions.FindAction("Player/Move");
+        _moveAction = InputSystem.actions.FindAction("Player/Move");
 
-        fireAction = InputSystem.actions.FindAction("Player/Fire");
-        fireAction.performed += ctx => Fire();
+        _fireAction = InputSystem.actions.FindAction("Player/Fire");
+        _fireAction.performed += ctx => Fire();
     }
 
     private void Fire()
     {
-        Instantiate(laserPrefab, transform.position, Quaternion.identity);
+        Instantiate(_laserPrefab, transform.position + _laserSpawnOffset, Quaternion.identity);
     }
 
     void Update()
@@ -36,7 +40,7 @@ public class Player : MonoBehaviour
 
     void CalcMovement()
     {
-        Vector3 movementDir = moveAction.ReadValue<Vector2>();
+        Vector3 movementDir = _moveAction.ReadValue<Vector2>();
 
         transform.transform.Translate(movementDir * _speed * Time.deltaTime);
 

@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e707e3ebd087b548aecd74d44a5eb0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserPrefab: {fileID: 2184390501673221255, guid: 7e4d52f85c93de840a78119367d14c3a, type: 3}
+  _laserPrefab: {fileID: 2184390501673221255, guid: 7e4d52f85c93de840a78119367d14c3a, type: 3}
   _speed: 3.5
 --- !u!114 &1070424921
 MonoBehaviour:
@@ -549,7 +549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3225791993110014019, guid: 7e4d52f85c93de840a78119367d14c3a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 6.22
       objectReference: {fileID: 0}
     - target: {fileID: 3225791993110014019, guid: 7e4d52f85c93de840a78119367d14c3a, type: 3}
       propertyPath: m_LocalPosition.z
