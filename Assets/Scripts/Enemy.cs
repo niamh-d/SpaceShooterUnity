@@ -19,4 +19,9 @@ public class Enemy : MonoBehaviour
             transform.position = new Vector3(randomX, 6.0f, 0);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+    Debug.Log("Hit:" + other.gameObject.name);
+    }
 }
