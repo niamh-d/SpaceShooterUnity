@@ -31,14 +31,6 @@ public class Player : MonoBehaviour
         _fireAction.performed += ctx => Fire();
     }
 
-    private void Fire()
-    {
-        if (Time.time > _canFire) {
-            _canFire = Time.time + _fireRate;
-            Instantiate(_laserPrefab, transform.position + _laserSpawnOffset, Quaternion.identity);
-        }
-    }
-
     void Update()
     {
         CalcMovement();
@@ -65,6 +57,15 @@ public class Player : MonoBehaviour
         else if (transform.position.x < _leftBoundary)
         {
             transform.position = new Vector3(_rightBoundary, transform.position.y, 0);
+        }
+    }
+
+    private void Fire()
+    {
+        if (Time.time > _canFire)
+        {
+            _canFire = Time.time + _fireRate;
+            Instantiate(_laserPrefab, transform.position + _laserSpawnOffset, Quaternion.identity);
         }
     }
 }
