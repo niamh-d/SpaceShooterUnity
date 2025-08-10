@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
 
     private InputAction _moveAction;
     private InputAction _fireAction;
+    private SpawnManager _spawnManager;
 
     void Start()
     {
@@ -31,6 +32,12 @@ public class Player : MonoBehaviour
 
         _fireAction = InputSystem.actions.FindAction("Player/Fire");
         _fireAction.performed += ctx => Fire();
+
+        _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        if (_spawnManager == null)
+        {
+            Debug.LogError("SpawnManager is NULL.");
+        }
     }
 
     void Update()
@@ -76,6 +83,7 @@ public class Player : MonoBehaviour
         _maxHealth--;
         if (_maxHealth <= 0)
         {
+            _spawnManager.OnPlayerIsDead();
             Destroy(gameObject);
         }
     }
