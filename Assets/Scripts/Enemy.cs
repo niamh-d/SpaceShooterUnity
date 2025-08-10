@@ -4,10 +4,6 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 4.0f;
-    void Start()
-    {
-        
-    }
 
     void Update()
     {

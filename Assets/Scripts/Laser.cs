@@ -8,11 +8,6 @@ public class Laser : MonoBehaviour
 
     private float deadZoneTop = 7f;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         transform.Translate(Vector3.up * _speed * Time.deltaTime);
