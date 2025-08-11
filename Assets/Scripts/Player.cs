@@ -1,7 +1,4 @@
-using System;
-using System.Linq.Expressions;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -22,22 +19,35 @@ public class Player : MonoBehaviour
 
     private Vector3 _laserSpawnOffset = new Vector3(0, 0.8f, 0);
 
-    private InputAction _moveAction;
-    private InputAction _fireAction;
     private SpawnManager _spawnManager;
+
+    private PlayerInputSet _inputSet;
+
+    void Awake()
+    {
+        _inputSet = new PlayerInputSet();
+    }
 
     void Start()
     {
-        _moveAction = InputSystem.actions.FindAction("Player/Move");
-
-        _fireAction = InputSystem.actions.FindAction("Player/Fire");
-        _fireAction.performed += ctx => Fire();
-
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         if (_spawnManager == null)
         {
             Debug.LogError("SpawnManager is NULL.");
         }
+    }
+
+    private void OnEnable()
+    {
+        _inputSet.Enable();
+
+        _inputSet.Player.Movement.performed += ctx => CalcMovement();
+        _inputSet.Player.Shoot.performed += ctx => Fire();
+    }
+
+    private void OnDisable()
+    {
+        _inputSet.Disable();
     }
 
     void Update()
@@ -47,7 +57,7 @@ public class Player : MonoBehaviour
 
     void CalcMovement()
     {
-        Vector3 movementDir = _moveAction.ReadValue<Vector2>();
+        Vector3 movementDir = _inputSet.Player.Movement.ReadValue<Vector2>();
 
         transform.transform.Translate(movementDir * _speed * Time.deltaTime);
 
